@@ -3,6 +3,7 @@ ENV UBUNTU_HOME=/var/www/html/
 RUN apt-get update -y
 RUN apt-get install apache2 -y
 RUN apt-get install -y tzdata
+ARG DEBIAN_FRONTEND=noninteractive
 WORKDIR UBUNTU_HOME
 ADD http://www.java2s.com/Code/JarDownload/json-simple/json-simple-1.1-bundle.jar.zip /tmp
 COPY script/ ${UBUNTU_HOME}
