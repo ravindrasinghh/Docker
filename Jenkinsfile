@@ -16,20 +16,7 @@ pipeline
     }
     stages 
     {
-		stage('Build') 
-        {
-		 when
-		 {
-		     branch 'test' 
-		 }
-         environment { JAVA_HOME = '/usr/lib/jvm/java-1.8.0' }
-         steps 
-         {
-            echo 'Running build'
-         }
-        }
-
-        stage('Build Docker Image') 
+	stage('Build Docker Image') 
         {
             when 
             {
