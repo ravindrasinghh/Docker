@@ -1,4 +1,5 @@
-pipeline {
+pipeline 
+{
     agent any
     options
     {
@@ -13,14 +14,27 @@ pipeline {
         FAMILY = 'dev-definition'
         SERVICE_NAME = 'dev-service'
     }
-}	
     stages 
     {
+		stage('Build') 
+        {
+		 when
+		 {
+		     branch 'test' 
+		 }
+         environment { JAVA_HOME = '/usr/lib/jvm/java-1.8.0' }
+         steps 
+         {
+            echo 'Running build'
+			sh './gradlew clean build'
+         }
+        }
+
         stage('Build Docker Image') 
         {
             when 
             {
-                branch 'master'
+                branch 'test'
             }
             steps 
             {
@@ -33,7 +47,7 @@ pipeline {
                     }
                 }
             }
-	}    
+        }
 
         stage('Push Docker Image') 
         {
