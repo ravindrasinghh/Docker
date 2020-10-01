@@ -26,7 +26,6 @@ pipeline
          steps 
          {
             echo 'Running build'
-			sh './gradlew clean build'
          }
         }
 
@@ -34,7 +33,7 @@ pipeline
         {
             when 
             {
-                branch 'test'
+                branch 'master'
             }
             steps 
             {
@@ -53,7 +52,7 @@ pipeline
         {
             when
             { 
-                branch 'test'
+                branch 'master'
             }
             steps 
             {
