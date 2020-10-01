@@ -1,0 +1,49 @@
+---
+- hosts: all
+  become: yes
+  vars:
+      package_list:
+      - 'python'
+      - 'wget'
+      - 'openjdk-8-jdk'
+  tasks:
+  - name: Update all packages to the latest version
+    shell: sudo apt update
+
+  - name: Update all packages to the latest version
+    package:
+        name: "{{ package_list }}" 
+        state: present  
+
+  - name: Installing Key
+    shell: wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
+
+  - name: Add the Jenkins repository to the system
+    become: yes
+    shell: sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'       
+
+  - name: Updating apt-get cache again
+    apt: 
+      update_cache: yes
+
+  - name: Installing Jenkins Only
+    apt:
+      name: jenkins
+      state: present 
+
+  - name: Sleep for 30 seconds and continue with play
+    wait_for: timeout=30
+
+  - name: Get init password Jenkins
+    shell: cat /var/lib/jenkins/secrets/initialAdminPassword
+    changed_when: false
+    register: result
+  
+  - debug:
+     var: result.stdout    
+    
+  handlers:
+    - name: restart
+      service: 
+        name: jenkins
+        state: restart
