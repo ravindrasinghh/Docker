@@ -40,7 +40,7 @@ pipeline
             {
                 script 
                 {
-                    docker.withRegistry("https://" + "${env.ECR_URI_DEV}" + "/" + "${env.IMAGE_NAME}",'ecr:' + "${env.AWS_REGION}" + ':AKIAZZARPMDQCA5SVQN6')
+                    docker.withRegistry("https://" + "${env.ECR_URI_DEV}" + "/" + "${env.IMAGE_NAME}",'ecr:' + "${env.AWS_REGION}" + ':ecr')
                     {
                     app.push("${env.BUILD_NUMBER}")
                     }
