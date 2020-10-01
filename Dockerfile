@@ -8,5 +8,3 @@ WORKDIR UBUNTU_HOME
 COPY script/ ${UBUNTU_HOME}
 EXPOSE 80
 CMD ["apachectl" , "-D","FOREGROUND"]
-
-#docker run -itd -p 27017:27017 -v /home/ravindra/mongo-data:/data/db mongo

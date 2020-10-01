@@ -1,0 +1,483 @@
+Started by user admin
+11:23:12 Connecting to https://api.github.com using ravindrasinghh/******
+Obtained Jenkinsfile from ef908b213fc3c57d5911f1e854ae138c1154ec51
+Running in Durability level: MAX_SURVIVABILITY
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/test-cicd-job_master
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Declarative: Checkout SCM)
+[Pipeline] checkout
+The recommended git tool is: NONE
+using credential 911d2724-39ea-4369-8133-afd829155b11
+ > git rev-parse --is-inside-work-tree # timeout=10
+Fetching changes from the remote Git repository
+ > git config remote.origin.url https://github.com/ravindrasinghh/Docker.git # timeout=10
+Fetching without tags
+Fetching upstream changes from https://github.com/ravindrasinghh/Docker.git
+ > git --version # timeout=10
+ > git --version # 'git version 2.17.1'
+using GIT_ASKPASS to set credentials 
+ > git fetch --no-tags --progress -- https://github.com/ravindrasinghh/Docker.git +refs/heads/master:refs/remotes/origin/master # timeout=10
+Checking out Revision ef908b213fc3c57d5911f1e854ae138c1154ec51 (master)
+ > git config core.sparsecheckout # timeout=10
+ > git checkout -f ef908b213fc3c57d5911f1e854ae138c1154ec51 # timeout=10
+Commit message: "Update index.html"
+ > git rev-list --no-walk a75dc0afb10b9c456b6d59d7585bdc540e070c0d # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Build Docker Image)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh
++ docker build -t ravindrasingh6969/load .
+Sending build context to Docker daemon  221.2kB
+
+Step 1/10 : FROM ubuntu
+ ---> 9140108b62dc
+Step 2/10 : ENV UBUNTU_HOME=/var/www/html/
+ ---> Using cache
+ ---> 25dad633f410
+Step 3/10 : RUN apt-get update -y
+ ---> Using cache
+ ---> 0b136edb4f51
+Step 4/10 : ENV DEBIAN_FRONTEND noninteractive
+ ---> Using cache
+ ---> fb15f439d0f0
+Step 5/10 : RUN apt-get -y install tzdata
+ ---> Using cache
+ ---> 025a67a764e5
+Step 6/10 : RUN apt-get install apache2 -y
+ ---> Using cache
+ ---> 46c3c38ba8e2
+Step 7/10 : WORKDIR UBUNTU_HOME
+ ---> Using cache
+ ---> 23fc55141ced
+Step 8/10 : COPY script/ ${UBUNTU_HOME}
+ ---> c78b4115b74e
+Step 9/10 : EXPOSE 80
+ ---> Running in 0df88469d502
+Removing intermediate container 0df88469d502
+ ---> 0c49ffc15d2b
+Step 10/10 : CMD ["apachectl" , "-D","FOREGROUND"]
+ ---> Running in f0c66e7475ad
+Removing intermediate container f0c66e7475ad
+ ---> b3021420fe1a
+Successfully built b3021420fe1a
+Successfully tagged ravindrasingh6969/load:latest
+[Pipeline] isUnix
+[Pipeline] sh
++ docker inspect -f . ravindrasingh6969/load
+.
+[Pipeline] withDockerContainer
+Jenkins does not seem to be running inside a container
+$ docker run -t -d -u 111:115 -w /var/lib/jenkins/workspace/test-cicd-job_master -v /var/lib/jenkins/workspace/test-cicd-job_master:/var/lib/jenkins/workspace/test-cicd-job_master:rw,z -v /var/lib/jenkins/workspace/test-cicd-job_master@tmp:/var/lib/jenkins/workspace/test-cicd-job_master@tmp:rw,z -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** -e ******** ravindrasingh6969/load cat
+$ docker top ad557c7e1b889194f6bb4bbe50b061e724e59bb0576ce70d8f1ea0e06ff654e0 -eo pid,comm
+[Pipeline] {
+[Pipeline] sh
++ echo Hello, World!
+Hello, World!
+[Pipeline] }
+$ docker stop --time=1 ad557c7e1b889194f6bb4bbe50b061e724e59bb0576ce70d8f1ea0e06ff654e0
+$ docker rm -f ad557c7e1b889194f6bb4bbe50b061e724e59bb0576ce70d8f1ea0e06ff654e0
+[Pipeline] // withDockerContainer
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Push Docker Image)
+[Pipeline] script
+[Pipeline] {
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] withDockerRegistry
+$ docker login -u AWS -p ******** https://224931607066.dkr.ecr.ap-southeast-1.amazonaws.com/ravindrasingh6969/load/ravindrasingh6969/load
+WARNING! Using --password via the CLI is insecure. Use --password-stdin.
+WARNING! Your password will be stored unencrypted in /var/lib/jenkins/workspace/test-cicd-job_master@tmp/cd62796e-d4ad-4378-8311-acb702e8ffa7/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] sh
++ docker tag ravindrasingh6969/load 224931607066.dkr.ecr.ap-southeast-1.amazonaws.com/ravindrasingh6969/load:46
+[Pipeline] isUnix
+[Pipeline] sh
++ docker push 224931607066.dkr.ecr.ap-southeast-1.amazonaws.com/ravindrasingh6969/load:46
+The push refers to repository [224931607066.dkr.ecr.ap-southeast-1.amazonaws.com/ravindrasingh6969/load]
+e7cc42f29a8f: Preparing
+fc1d79ad343d: Preparing
+0d60008c8860: Preparing
+d035e6dbad9c: Preparing
+4491e8fca47b: Preparing
+782f5f011dda: Preparing
+90ac32a0d9ab: Preparing
+d42a4fdf4b2a: Preparing
+782f5f011dda: Waiting
+90ac32a0d9ab: Waiting
+d42a4fdf4b2a: Waiting
+4491e8fca47b: Layer already exists
+d035e6dbad9c: Layer already exists
+0d60008c8860: Layer already exists
+fc1d79ad343d: Layer already exists
+782f5f011dda: Layer already exists
+90ac32a0d9ab: Layer already exists
+d42a4fdf4b2a: Layer already exists
+e7cc42f29a8f: Pushed
+46: digest: sha256:7df111861af95b41eca5af0f4ca5d2ac54dfcdc55ac0a580146774d4153a44fd size: 1992
+[Pipeline] }
+[Pipeline] // withDockerRegistry
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Create and Update Task Definition)
+[Pipeline] sh
++ sed -e s;%BUILD_NUMBER%;46;g aws/task-definition.json
+[Pipeline] sh
++ aws ecs register-task-definition --family dev-definition --cli-input-json --region ap-southeast-1 file://task-definition-46.json
+{
+    "taskDefinition": {
+        "taskDefinitionArn": "arn:aws:ecs:ap-southeast-1:224931607066:task-definition/dev-definition:4",
+        "containerDefinitions": [
+            {
+                "name": "backend",
+                "image": "672199041248.dkr.ecr.us-west-2.amazonaws.com:46",
+                "cpu": 0,
+                "memoryReservation": 1024,
+                "portMappings": [
+                    {
+                        "containerPort": 80,
+                        "hostPort": 80,
+                        "protocol": "tcp"
+                    }
+                ],
+                "essential": true,
+                "environment": [
+                    {
+                        "name": "NODE_ENV",
+                        "value": "%ENV%"
+                    }
+                ],
+                "mountPoints": [],
+                "volumesFrom": [],
+                "logConfiguration": {
+                    "logDriver": "awslogs",
+                    "options": {
+                        "awslogs-group": "/ecs/dev-defination",
+                        "awslogs-region": "AWS_REGION",
+                        "awslogs-stream-prefix": "ecs"
+                    }
+                }
+            }
+        ],
+        "family": "dev-definition",
+        "taskRoleArn": "arn:aws:iam::224931607066:role/dev-taskrole",
+        "executionRoleArn": "arn:aws:iam::224931607066:role/dev-taskexecutionrole",
+        "networkMode": "awsvpc",
+        "revision": 4,
+        "volumes": [],
+        "status": "ACTIVE",
+        "requiresAttributes": [
+            {
+                "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+            },
+            {
+                "name": "ecs.capability.execution-role-awslogs"
+            },
+            {
+                "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+            },
+            {
+                "name": "com.amazonaws.ecs.capability.docker-remote-api.1.21"
+            },
+            {
+                "name": "com.amazonaws.ecs.capability.task-iam-role"
+            },
+            {
+                "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+            },
+            {
+                "name": "ecs.capability.task-eni"
+            }
+        ],
+        "placementConstraints": [],
+        "compatibilities": [
+            "EC2",
+            "FARGATE"
+        ],
+        "requiresCompatibilities": [
+            "FARGATE"
+        ],
+        "cpu": "512",
+        "memory": "1024"
+    }
+}
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Update Service)
+[Pipeline] sh
++ tr ,  
++ awk {print $2}
++ egrep revision
++ aws ecs describe-task-definition --task-definition dev-definition --region ap-southeast-1
++ aws ecs update-service --cluster dev-ecs --service dev-service --region ap-southeast-1 --task-definition dev-definition:4 --desired-count 1
+{
+    "service": {
+        "serviceArn": "arn:aws:ecs:ap-southeast-1:224931607066:service/dev-service",
+        "serviceName": "dev-service",
+        "clusterArn": "arn:aws:ecs:ap-southeast-1:224931607066:cluster/dev-ecs",
+        "loadBalancers": [
+            {
+                "targetGroupArn": "arn:aws:elasticloadbalancing:ap-southeast-1:224931607066:targetgroup/dev-target-group-ops/ffe35c72d1152320",
+                "containerName": "backend",
+                "containerPort": 80
+            }
+        ],
+        "serviceRegistries": [],
+        "status": "ACTIVE",
+        "desiredCount": 1,
+        "runningCount": 1,
+        "pendingCount": 0,
+        "launchType": "FARGATE",
+        "platformVersion": "LATEST",
+        "taskDefinition": "arn:aws:ecs:ap-southeast-1:224931607066:task-definition/dev-definition:4",
+        "deploymentConfiguration": {
+            "maximumPercent": 200,
+            "minimumHealthyPercent": 100
+        },
+        "deployments": [
+            {
+                "id": "ecs-svc/2215673979113388529",
+                "status": "PRIMARY",
+                "taskDefinition": "arn:aws:ecs:ap-southeast-1:224931607066:task-definition/dev-definition:4",
+                "desiredCount": 1,
+                "pendingCount": 0,
+                "runningCount": 0,
+                "createdAt": 1601551405.816,
+                "updatedAt": 1601551405.816,
+                "launchType": "FARGATE",
+                "platformVersion": "1.3.0",
+                "networkConfiguration": {
+                    "awsvpcConfiguration": {
+                        "subnets": [
+                            "subnet-040842d37456af61e",
+                            "subnet-08a51f92231a17643"
+                        ],
+                        "securityGroups": [
+                            "sg-09def8fd76caf46f5"
+                        ],
+                        "assignPublicIp": "DISABLED"
+                    }
+                }
+            },
+            {
+                "id": "ecs-svc/1365892568834966837",
+                "status": "ACTIVE",
+                "taskDefinition": "arn:aws:ecs:ap-southeast-1:224931607066:task-definition/dev-definition:3",
+                "desiredCount": 1,
+                "pendingCount": 0,
+                "runningCount": 0,
+                "createdAt": 1601550851.252,
+                "updatedAt": 1601550851.252,
+                "launchType": "FARGATE",
+                "platformVersion": "1.3.0",
+                "networkConfiguration": {
+                    "awsvpcConfiguration": {
+                        "subnets": [
+                            "subnet-040842d37456af61e",
+                            "subnet-08a51f92231a17643"
+                        ],
+                        "securityGroups": [
+                            "sg-09def8fd76caf46f5"
+                        ],
+                        "assignPublicIp": "DISABLED"
+                    }
+                }
+            },
+            {
+                "id": "ecs-svc/5720749900724271535",
+                "status": "ACTIVE",
+                "taskDefinition": "arn:aws:ecs:ap-southeast-1:224931607066:task-definition/dev-defination:3",
+                "desiredCount": 2,
+                "pendingCount": 0,
+                "runningCount": 1,
+                "createdAt": 1601542535.948,
+                "updatedAt": 1601546557.438,
+                "launchType": "FARGATE",
+                "platformVersion": "1.3.0",
+                "networkConfiguration": {
+                    "awsvpcConfiguration": {
+                        "subnets": [
+                            "subnet-040842d37456af61e",
+                            "subnet-08a51f92231a17643"
+                        ],
+                        "securityGroups": [
+                            "sg-09def8fd76caf46f5"
+                        ],
+                        "assignPublicIp": "DISABLED"
+                    }
+                }
+            }
+        ],
+        "roleArn": "arn:aws:iam::224931607066:role/aws-service-role/ecs.amazonaws.com/AWSServiceRoleForECS",
+        "events": [
+            {
+                "id": "03d83d36-ac52-449c-8c4e-5e4d8cfb2d13",
+                "createdAt": 1601551066.186,
+                "message": "(service dev-service) has started 1 tasks: (task 1074490f-5dba-4b06-a468-da5785403c52)."
+            },
+            {
+                "id": "d141e6b2-08dc-4414-8c97-076af85b3295",
+                "createdAt": 1601550967.127,
+                "message": "(service dev-service) has started 1 tasks: (task 94077184-27aa-46bd-8118-8d822efbb47f)."
+            },
+            {
+                "id": "be565998-494a-4cf5-bfbd-c16452ba3632",
+                "createdAt": 1601550872.025,
+                "message": "(service dev-service) has started 1 tasks: (task 83bb1576-fa75-458c-9831-e5385a57b315)."
+            },
+            {
+                "id": "236a1595-7bf0-4f0b-91a9-1123a945d1a7",
+                "createdAt": 1601550728.52,
+                "message": "(service dev-service) has started 1 tasks: (task 7f20befb-0cf4-441f-824f-9ccf99e21bff)."
+            },
+            {
+                "id": "a0bd7dd9-4cc2-49c9-89f1-d48c57254a89",
+                "createdAt": 1601550363.689,
+                "message": "(service dev-service) has started 1 tasks: (task 20d2a72d-e5a7-4a3f-b671-4aab172386fb)."
+            },
+            {
+                "id": "f7c6ad04-ad07-4e6f-bf85-83aead6d06e7",
+                "createdAt": 1601549991.941,
+                "message": "(service dev-service) has started 1 tasks: (task a04908ca-c853-4b64-8064-54d56a750a6f)."
+            },
+            {
+                "id": "3365b6ac-8ce4-460b-80c6-e1a10759fde8",
+                "createdAt": 1601549629.064,
+                "message": "(service dev-service) has started 1 tasks: (task 9a779dfe-4756-49e8-b051-8086ef6d4dbf)."
+            },
+            {
+                "id": "05f1bd51-04cd-4cf9-958f-8fe593fde28b",
+                "createdAt": 1601549252.098,
+                "message": "(service dev-service) has started 1 tasks: (task 3a4b7e57-2f7d-4381-b93d-1ec469930b3a)."
+            },
+            {
+                "id": "d7cc3a5b-4a77-4b45-be93-3a1067e616d9",
+                "createdAt": 1601548908.643,
+                "message": "(service dev-service) has started 1 tasks: (task 9de79134-38d3-4d36-b465-bc63aabad561)."
+            },
+            {
+                "id": "c76d9f92-0da1-4358-99ff-a0767b8ccb89",
+                "createdAt": 1601548537.968,
+                "message": "(service dev-service) has started 1 tasks: (task f93ebbf6-a456-4444-9e27-ad49a6aa12f5)."
+            },
+            {
+                "id": "8c9c4303-5074-464f-9117-7f7267f66a9d",
+                "createdAt": 1601548178.668,
+                "message": "(service dev-service) has started 1 tasks: (task 5d1076fa-3aa8-4fa3-8678-b7c0a96fb693)."
+            },
+            {
+                "id": "77c24cf9-658b-4c68-8b3b-8b2ffef776cb",
+                "createdAt": 1601547809.801,
+                "message": "(service dev-service) has started 1 tasks: (task 26997f64-0fd5-4da5-bf34-961b7d40c14e)."
+            },
+            {
+                "id": "9b066ed6-8dc5-4641-b070-5b3b1045850d",
+                "createdAt": 1601547457.13,
+                "message": "(service dev-service) has started 1 tasks: (task fc38d4b8-87ab-4a38-af7c-343bfca17f89)."
+            },
+            {
+                "id": "2463769e-4fd8-46ae-a535-17e9b5b7ad62",
+                "createdAt": 1601547101.066,
+                "message": "(service dev-service) has started 1 tasks: (task 278bb3ad-b4d0-4233-84f6-411d4df9f907)."
+            },
+            {
+                "id": "03107f97-b9f8-4eac-8cd1-3daba8f93b58",
+                "createdAt": 1601547013.663,
+                "message": "(service dev-service) has started 1 tasks: (task b46a2ae7-294c-423b-8765-b753d3ca8a79)."
+            },
+            {
+                "id": "588d4338-7ad4-4f15-a0cb-073854e8fa71",
+                "createdAt": 1601546922.694,
+                "message": "(service dev-service) has started 1 tasks: (task 7c3e9f0d-9367-410d-95e7-7a7e0438afcc)."
+            },
+            {
+                "id": "03c2fd00-ded8-412a-be5c-9e6ee48ca4dd",
+                "createdAt": 1601546862.388,
+                "message": "(service dev-service) has stopped 1 running tasks: (task c70ddb60-1c62-4e9f-956f-f34e1dad405a)."
+            },
+            {
+                "id": "27d1f1ad-5bca-46c9-be9b-4d9cbad8a538",
+                "createdAt": 1601546557.506,
+                "message": "(service dev-service) has begun draining connections on 1 tasks."
+            },
+            {
+                "id": "58f586ed-cd34-4814-b464-6f45bd76382d",
+                "createdAt": 1601546557.505,
+                "message": "(service dev-service) deregistered 1 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-1:224931607066:targetgroup/dev-target-group-ops/ffe35c72d1152320)"
+            },
+            {
+                "id": "acf5c90b-589f-4387-a082-bad01fca128a",
+                "createdAt": 1601542591.533,
+                "message": "(service dev-service) has reached a steady state."
+            },
+            {
+                "id": "4c850b3a-2e80-4e47-9e26-3d30275ad5b6",
+                "createdAt": 1601542573.176,
+                "message": "(service dev-service) registered 2 targets in (target-group arn:aws:elasticloadbalancing:ap-southeast-1:224931607066:targetgroup/dev-target-group-ops/ffe35c72d1152320)"
+            },
+            {
+                "id": "e1b2395b-5f33-4222-8adb-7b888973ec87",
+                "createdAt": 1601542538.108,
+                "message": "(service dev-service) has started 2 tasks: (task c70ddb60-1c62-4e9f-956f-f34e1dad405a) (task bd8854a4-5ed7-4d14-9bd3-87f772a70cf3)."
+            }
+        ],
+        "createdAt": 1601542535.948,
+        "placementConstraints": [],
+        "placementStrategy": [],
+        "networkConfiguration": {
+            "awsvpcConfiguration": {
+                "subnets": [
+                    "subnet-040842d37456af61e",
+                    "subnet-08a51f92231a17643"
+                ],
+                "securityGroups": [
+                    "sg-09def8fd76caf46f5"
+                ],
+                "assignPublicIp": "DISABLED"
+            }
+        },
+        "healthCheckGracePeriodSeconds": 0,
+        "schedulingStrategy": "REPLICA",
+        "createdBy": "arn:aws:iam::224931607066:root",
+        "enableECSManagedTags": false,
+        "propagateTags": "NONE"
+    }
+}
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+
+GitHub has been notified of this commit’s build result
+
+Finished: SUCCESS
