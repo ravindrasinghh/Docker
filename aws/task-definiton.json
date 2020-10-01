@@ -1,0 +1,40 @@
+{
+  "containerDefinitions": [ 
+   { 
+     "essential": true,
+     "image": "672199041248.dkr.ecr.us-west-2.amazonaws.com:%BUILD_NUMBER%",
+     "memoryReservation": 1024,
+     "environment": [
+      {
+       "name": "NODE_ENV",
+       "value": "%ENV%"
+      }
+     ],
+     "logConfiguration": { 
+      "logDriver": "awslogs",
+      "options": { 
+        "awslogs-group" : "/ecs/dev-defination",
+        "awslogs-region": "AWS_REGION",
+        "awslogs-stream-prefix": "ecs"
+      }
+     },
+     "name": "backend",
+     "portMappings": [ 
+      { 
+        "containerPort": 9090,
+        "hostPort": 9090,
+        "protocol": "tcp"
+      }
+     ]
+   }
+  ],
+  "cpu": "512",
+  "executionRoleArn": "dev-taskexecutionrole",
+  "family": "dev-defination",
+  "taskRoleArn": "dev-taskrole",
+  "memory": "1024",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": [ 
+    "FARGATE" 
+  ]
+}
