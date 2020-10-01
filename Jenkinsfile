@@ -14,18 +14,13 @@ pipeline
         FAMILY = 'dev-definition'
         SERVICE_NAME = 'dev-service'
     }
-    stages 
-    {
-	stage('Build Docker Image') 
-        {
-            when 
-            {
+    stages {
+	stage('Build Docker Image'){
+            when {
                 branch 'master'
             }
-            steps 
-            {
-                script 
-                {
+            steps {
+                script{
                     app = docker.build(IMAGE_NAME)
                     app.inside 
                     {
