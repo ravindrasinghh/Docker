@@ -13,6 +13,7 @@ pipeline {
         FAMILY = 'dev-definition'
         SERVICE_NAME = 'dev-service'
     }
+}	
     stages 
     {
         stage('Build Docker Image') 
@@ -70,3 +71,4 @@ pipeline {
 
         }    
     } 
+}
