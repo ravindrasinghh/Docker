@@ -1,5 +1,4 @@
-pipeline 
-{
+pipeline {
     agent any
     options
     {
@@ -34,6 +33,7 @@ pipeline
                 }
             }
         }
+    }	    
 
         stage('Push Docker Image') 
         {
