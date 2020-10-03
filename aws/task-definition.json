@@ -2,7 +2,7 @@
   "containerDefinitions": [ 
    { 
      "essential": true,
-     "image": "672199041248.dkr.ecr.us-west-2.amazonaws.com:%BUILD_NUMBER%",
+     "image": "224931607066.dkr.ecr.ap-southeast-1.amazonaws.com:%BUILD_NUMBER%",
      "memoryReservation": 1024,
      "environment": [
       {
