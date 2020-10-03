@@ -13,7 +13,7 @@
      "logConfiguration": { 
       "logDriver": "awslogs",
       "options": { 
-        "awslogs-group" : "/ecs/dev-defination",
+        "awslogs-group" : "/ecs/dev-definition",
         "awslogs-region": "AWS_REGION",
         "awslogs-stream-prefix": "ecs"
       }
@@ -30,7 +30,7 @@
   ],
   "cpu": "512",
   "executionRoleArn": "dev-taskexecutionrole",
-  "family": "dev-defination",
+  "family": "dev-definition",
   "taskRoleArn": "dev-taskrole",
   "memory": "1024",
   "networkMode": "awsvpc",
